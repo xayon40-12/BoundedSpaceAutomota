@@ -1,24 +1,3 @@
-{-# LANGUAGE
---TypeInType,
---TypeApplications,
-TypeFamilies,
---ScopedTypeVariables,
-DataKinds,
-GADTs,
-UndecidableInstances,
---TypeOperators,
---AllowAmbiguousTypes,
---TypeSynonymInstances,
---MultiParamTypeClasses,
-FlexibleContexts,
-FlexibleInstances,
-StandaloneDeriving,
-InstanceSigs,
-PolyKinds
-#-}
-
-{-# OPTIONS_GHC -fwarn-incomplete-patterns #-}
-
 module Lib where
 
 import Data.Functor.Rep

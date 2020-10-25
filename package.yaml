@@ -24,6 +24,25 @@ dependencies:
 - adjunctions
 - distributive
 
+ghc-options:
+- -fwarn-incomplete-patterns
+- -XGADTs
+- -XDataKinds
+- -XTypeFamilies
+- -XPolyKinds
+- -XInstanceSigs
+- -XStandaloneDeriving
+- -XFlexibleContexts
+- -XFlexibleInstances
+- -XUndecidableInstances
+#- -XTypeInType
+#- -XTypeApplications
+#- -XScopedTypeVariables
+#- -XTypeOperators
+#- -XAllowAmbiguousTypes
+#- -XTypeSynonymInstances
+#- -XMultiParamTypeClasses
+
 library:
   source-dirs: src
 
