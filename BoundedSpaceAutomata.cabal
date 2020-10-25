@@ -27,16 +27,18 @@ library
   exposed-modules:
       Fin
       Nat
+      Store
       Vect
   other-modules:
       Paths_BoundedSpaceAutomata
   hs-source-dirs:
       src
-  default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances
+  default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances MultiParamTypeClasses
   ghc-options: -fwarn-incomplete-patterns
   build-depends:
       adjunctions
     , base >=4.7 && <5
+    , comonad
     , distributive
   default-language: Haskell2010
 
@@ -46,12 +48,13 @@ executable BoundedSpaceAutomata-exe
       Paths_BoundedSpaceAutomata
   hs-source-dirs:
       app
-  default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances
+  default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances MultiParamTypeClasses
   ghc-options: -fwarn-incomplete-patterns -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       BoundedSpaceAutomata
     , adjunctions
     , base >=4.7 && <5
+    , comonad
     , distributive
   default-language: Haskell2010
 
@@ -62,11 +65,12 @@ test-suite BoundedSpaceAutomata-test
       Paths_BoundedSpaceAutomata
   hs-source-dirs:
       test
-  default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances
+  default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances MultiParamTypeClasses
   ghc-options: -fwarn-incomplete-patterns -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       BoundedSpaceAutomata
     , adjunctions
     , base >=4.7 && <5
+    , comonad
     , distributive
   default-language: Haskell2010
