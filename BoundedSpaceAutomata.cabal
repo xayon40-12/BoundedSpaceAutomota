@@ -25,12 +25,15 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Fin
+      Nat
+      Vect
   other-modules:
       Paths_BoundedSpaceAutomata
   hs-source-dirs:
       src
-  ghc-options: -fwarn-incomplete-patterns -XGADTs -XDataKinds -XTypeFamilies -XPolyKinds -XInstanceSigs -XStandaloneDeriving -XFlexibleContexts -XFlexibleInstances -XUndecidableInstances
+  default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances
+  ghc-options: -fwarn-incomplete-patterns
   build-depends:
       adjunctions
     , base >=4.7 && <5
@@ -43,7 +46,8 @@ executable BoundedSpaceAutomata-exe
       Paths_BoundedSpaceAutomata
   hs-source-dirs:
       app
-  ghc-options: -fwarn-incomplete-patterns -XGADTs -XDataKinds -XTypeFamilies -XPolyKinds -XInstanceSigs -XStandaloneDeriving -XFlexibleContexts -XFlexibleInstances -XUndecidableInstances -threaded -rtsopts -with-rtsopts=-N
+  default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances
+  ghc-options: -fwarn-incomplete-patterns -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       BoundedSpaceAutomata
     , adjunctions
@@ -58,7 +62,8 @@ test-suite BoundedSpaceAutomata-test
       Paths_BoundedSpaceAutomata
   hs-source-dirs:
       test
-  ghc-options: -fwarn-incomplete-patterns -XGADTs -XDataKinds -XTypeFamilies -XPolyKinds -XInstanceSigs -XStandaloneDeriving -XFlexibleContexts -XFlexibleInstances -XUndecidableInstances -threaded -rtsopts -with-rtsopts=-N
+  default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances
+  ghc-options: -fwarn-incomplete-patterns -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       BoundedSpaceAutomata
     , adjunctions

@@ -24,24 +24,26 @@ dependencies:
 - adjunctions
 - distributive
 
+default-extensions:
+- GADTs
+- DataKinds
+- TypeFamilies
+- PolyKinds
+- InstanceSigs
+- StandaloneDeriving
+- FlexibleContexts
+- FlexibleInstances
+- UndecidableInstances
+#- TypeInType
+#- TypeApplications
+#- ScopedTypeVariables
+#- TypeOperators
+#- AllowAmbiguousTypes
+#- TypeSynonymInstances
+#- MultiParamTypeClasses
+
 ghc-options:
 - -fwarn-incomplete-patterns
-- -XGADTs
-- -XDataKinds
-- -XTypeFamilies
-- -XPolyKinds
-- -XInstanceSigs
-- -XStandaloneDeriving
-- -XFlexibleContexts
-- -XFlexibleInstances
-- -XUndecidableInstances
-#- -XTypeInType
-#- -XTypeApplications
-#- -XScopedTypeVariables
-#- -XTypeOperators
-#- -XAllowAmbiguousTypes
-#- -XTypeSynonymInstances
-#- -XMultiParamTypeClasses
 
 library:
   source-dirs: src
