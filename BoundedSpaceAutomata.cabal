@@ -27,6 +27,7 @@ library
   exposed-modules:
       Fin
       Nat
+      Rule
       Store
       Vect
   other-modules:

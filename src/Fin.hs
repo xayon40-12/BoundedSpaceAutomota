@@ -30,3 +30,22 @@ instance Bounded (Fin (S Z)) where
 instance (Bounded (Fin (S n))) => Bounded (Fin (S (S n))) where
     minBound = FO
     maxBound = FS maxBound
+
+weaken :: Fin k -> Fin (S k)
+weaken FO = FO
+weaken (FS n) = FS (weaken n)
+
+down :: (Bounded (Fin (S k))) => Fin (S k) -> Fin (S k)
+down FO = maxBound
+down (FS k) = weaken k
+
+class Up a where
+    up :: a -> a
+
+instance Up (Fin (S Z)) where
+    up _ = FO
+
+instance (Bounded (Fin (S (S Z)))) => Up (Fin (S (S Z))) where
+    up maxBound = FO
+    up FO = FS FO
+    up (FS n) = FS (up n)
