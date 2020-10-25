@@ -8,17 +8,12 @@ instance Enum N where
     fromEnum (S n) = 1 + fromEnum n
 
 type family Nadd a b where
-    Nadd Z Z = Z
-    Nadd (S n) Z = S n
-    Nadd Z (S n) = S n
-    Nadd (S n) (S m) = S (Nadd n (S m))
+    Nadd Z n = n
+    Nadd (S m) n = S (Nadd m n)
 
 type family Nmul a b where
-    Nmul Z Z = Z
-    Nmul (S n) Z = Z
-    Nmul Z (S n) = Z
-    Nmul (S Z) (S Z) = S Z
-    Nmul (S n) (S m) = Nadd (S m) (Nmul n (S m))
+    Nmul Z n = Z
+    Nmul (S m) n = Nadd n (Nmul m n)
 
 type N0 = Z
 type N1 = S N0
