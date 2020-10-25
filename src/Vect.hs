@@ -1,7 +1,8 @@
 module Vect where
-
+    
 import Nat
 import Fin
+import Store
 import Data.Functor.Rep
 import Data.Distributive
 
@@ -12,6 +13,7 @@ infixr :>
 deriving instance (Show a) => Show (Vect n a)
 deriving instance (Eq a) => Eq (Vect n a)
 deriving instance (Ord a) => Ord (Vect n a)
+instance (Representable (Vect n), Rep (Vect n) ~ Fin n) => R (Vect n) (Fin n)
 
 instance Functor (Vect n) where
     fmap :: (a -> b) -> Vect n a -> Vect n b
