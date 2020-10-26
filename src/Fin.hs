@@ -5,6 +5,8 @@ import Nat
 data Fin (n :: N) where
     FO :: Fin (S n) -- One element
     FS :: Fin n -> Fin (S n) -- n + 1 element
+instance Show (Fin Z) where
+    show = undefined -- unreachable
 instance (Enum (Fin (S n))) => Show (Fin (S n)) where
     show n = show (fromEnum n)
 deriving instance Eq (Fin n)
@@ -35,17 +37,22 @@ weaken :: Fin k -> Fin (S k)
 weaken FO = FO
 weaken (FS n) = FS (weaken n)
 
+class Strengthenable a n where
+    strengthen :: a (S n) -> Either (a (S n)) (a n)
+
+instance Strengthenable Fin Z where
+    strengthen FO = Left FO
+    strengthen _ = undefined -- unreachable
+
+instance (Strengthenable Fin k) => Strengthenable Fin (S k) where
+    strengthen FO = Right FO
+    strengthen (FS n) = case strengthen n of
+                    Left x -> Left $ FS x
+                    Right x -> Right $ FS x
+
 down :: (Bounded (Fin (S k))) => Fin (S k) -> Fin (S k)
 down FO = maxBound
 down (FS k) = weaken k
 
-class Up a where
-    up :: a -> a
-
-instance Up (Fin (S Z)) where
-    up _ = FO
-
-instance (Bounded (Fin (S (S Z)))) => Up (Fin (S (S Z))) where
-    up maxBound = FO
-    up FO = FS FO
-    up (FS n) = FS (up n)
+up :: (Strengthenable Fin k) => Fin (S k) -> Fin (S k)
+up = either (const FO) FS . strengthen
