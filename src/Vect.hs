@@ -5,6 +5,7 @@ import Fin
 import Store
 import Data.Functor.Rep
 import Data.Distributive
+import GHC.Exts (IsList,Item,fromList,toList)
 
 data Vect (n :: N) a where
     Nil :: Vect Z a
@@ -44,3 +45,20 @@ instance (Rv n) => Representable (Vect (S n)) where
     index :: Vect (S n) a -> Rep (Vect (S n)) -> a
     index (x:>_) FO = x
     index (_:>xs) (FS k) = index xs k
+
+--TODO use Liquid haskell to enforce length [Item (Vect k a)] ~ k
+instance IsList (Vect Z a) where
+    type Item (Vect Z a) = a
+    fromList [] = Nil
+    fromList (x:xs) = error "Wrong list length."
+    toList Nil = []
+
+type Lv k a = (IsList (Vect k a),Item (Vect k a) ~ a)
+--TODO use Liquid haskell to enforce length [Item (Vect k a)] ~ k
+instance (Lv k a) => IsList (Vect (S k) a) where
+    type Item (Vect (S k) a) = a
+    fromList :: [Item (Vect (S k) a)] -> Vect (S k) a
+    fromList [] = error "Wrong list length."
+    fromList (x:xs) = x :> fromList xs
+    toList :: Vect (S k) a -> [Item (Vect (S k) a)]
+    toList (x:>xs) = x : toList xs

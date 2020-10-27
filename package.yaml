@@ -37,6 +37,7 @@ default-extensions:
 - UndecidableInstances
 - MultiParamTypeClasses
 - ConstraintKinds
+- OverloadedLists
 #- TypeInType
 #- TypeApplications
 #- ScopedTypeVariables
