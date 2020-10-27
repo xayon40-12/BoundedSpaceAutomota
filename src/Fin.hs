@@ -26,6 +26,7 @@ instance (Enum (Fin (S n))) => Enum (Fin (S (S n))) where
     fromEnum FO = 1
     fromEnum (FS n) = 1 + fromEnum n
 
+type Bf k = Bounded (Fin k)
 instance Bounded (Fin (S Z)) where
     minBound = FO
     maxBound = FO
@@ -40,19 +41,20 @@ weaken (FS n) = FS (weaken n)
 class Strengthenable a n where
     strengthen :: a (S n) -> Either (a (S n)) (a n)
 
+type Sf = Strengthenable Fin
 instance Strengthenable Fin Z where
     strengthen FO = Left FO
     strengthen _ = undefined -- unreachable
 
-instance (Strengthenable Fin k) => Strengthenable Fin (S k) where
+instance (Sf k) => Strengthenable Fin (S k) where
     strengthen FO = Right FO
     strengthen (FS n) = case strengthen n of
                     Left x -> Left $ FS x
                     Right x -> Right $ FS x
 
-down :: (Bounded (Fin (S k))) => Fin (S k) -> Fin (S k)
+down :: (Bf (S k)) => Fin (S k) -> Fin (S k)
 down FO = maxBound
 down (FS k) = weaken k
 
-up :: (Strengthenable Fin k) => Fin (S k) -> Fin (S k)
+up :: (Sf k) => Fin (S k) -> Fin (S k)
 up = either (const FO) FS . strengthen

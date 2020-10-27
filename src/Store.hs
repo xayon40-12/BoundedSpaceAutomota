@@ -3,7 +3,7 @@ module Store where
 import Data.Functor.Rep
 import Control.Comonad
 
-class (Representable f, Rep f ~ rep) => R f rep
+type R f rep= (Representable f, Rep f ~ rep)
 
 data Store :: (* -> *) -> * -> * -> * where
     MkStore :: rep -> f a -> Store f rep a

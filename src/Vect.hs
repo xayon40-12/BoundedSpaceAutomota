@@ -13,7 +13,6 @@ infixr :>
 deriving instance (Show a) => Show (Vect n a)
 deriving instance (Eq a) => Eq (Vect n a)
 deriving instance (Ord a) => Ord (Vect n a)
-instance (Representable (Vect n), Rep (Vect n) ~ Fin n) => R (Vect n) (Fin n)
 
 instance Functor (Vect n) where
     fmap :: (a -> b) -> Vect n a -> Vect n b
@@ -32,10 +31,11 @@ instance Representable (Vect Z) where
     index :: Vect Z a -> Rep (Vect Z) -> a
     index Nil _ = undefined
 
-instance (Representable (Vect n), Rep (Vect n) ~ Fin n) => Distributive (Vect (S n)) where
+type Rv n = (Representable (Vect n), Rep (Vect n) ~ Fin n)
+instance (Rv n) => Distributive (Vect (S n)) where
     distribute = distributeRep
 
-instance (Representable (Vect n), Rep (Vect n) ~ Fin n) => Representable (Vect (S n)) where
+instance (Rv n) => Representable (Vect (S n)) where
     type Rep (Vect (S n)) = Fin (S n)
 
     tabulate :: (Fin (S n) -> a) -> Vect (S n) a
