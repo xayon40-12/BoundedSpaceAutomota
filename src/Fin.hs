@@ -12,6 +12,7 @@ instance (Enum (Fin (S n))) => Show (Fin (S n)) where
 deriving instance Eq (Fin n)
 deriving instance Ord (Fin n)
 
+--TODO use Liquid haskell to enforce (n :: Int) ~ Fin n
 instance Enum (Fin (S Z)) where
     toEnum :: Int -> (Fin (S Z))
     toEnum 1 = FO
@@ -20,6 +21,7 @@ instance Enum (Fin (S Z)) where
     fromEnum FO = 1
     fromEnum (FS _) = undefined -- Not rechable as Fin (S Z) is inhabited only by FO
 
+--TODO use Liquid haskell to enforce (n :: Int) ~ Fin n
 instance (Enum (Fin (S n))) => Enum (Fin (S (S n))) where
     toEnum 1 = FO
     toEnum i = FS . toEnum $ i-1
