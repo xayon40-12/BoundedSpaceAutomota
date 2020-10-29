@@ -7,6 +7,8 @@ import Store
 import Control.Comonad
 import Control.Monad
 import Data.Functor.Rep
+import GHC.Exts (IsList,toList)
+import Data.Foldable (traverse_)
 
 type Na3 k = Nadd N3 k
 type V3 k = Vect (Na3 k)
@@ -39,3 +41,17 @@ universe = tabulate id
 boolToString :: Bool -> String
 boolToString False = "0"
 boolToString True = "1"
+
+printState :: (Lv k Bool) => V3 k Bool -> IO()
+printState xs = do
+    traverse_ (putStr . boolToString) $ toList xs
+    putStrLn ""
+
+runSimulation :: forall k. (Lv k Bool,BSR k) => S3 k Bool -> IO ()
+runSimulation s = do
+        if all id lcurr || all not lcurr
+            then printState curr
+            else printState curr >>= \_ -> runSimulation (nextGen s)
+    where curr :: (Lv k Bool,BSR k) => V3 k Bool
+          curr = experiment (const universe) s
+          lcurr = toList curr
