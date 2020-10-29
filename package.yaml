@@ -38,9 +38,9 @@ default-extensions:
 - MultiParamTypeClasses
 - ConstraintKinds
 - OverloadedLists
+- ScopedTypeVariables
 #- TypeInType
 #- TypeApplications
-#- ScopedTypeVariables
 #- TypeOperators
 #- AllowAmbiguousTypes
 #- TypeSynonymInstances
