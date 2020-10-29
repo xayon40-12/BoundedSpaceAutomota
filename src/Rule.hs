@@ -9,6 +9,7 @@ import Control.Monad
 import Data.Functor.Rep
 import GHC.Exts (IsList,toList)
 import Data.Foldable (traverse_)
+import Control.Concurrent
 
 type Na3 k = Nadd N3 k
 type V3 k = Vect (Na3 k)
@@ -39,8 +40,8 @@ universe :: (Rv k) => Vect k (Fin k)
 universe = tabulate id
 
 boolToString :: Bool -> String
-boolToString False = "0"
-boolToString True = "1"
+boolToString False = " "
+boolToString True = "#"
 
 printState :: (Lv k Bool) => V3 k Bool -> IO()
 printState xs = do
@@ -51,7 +52,9 @@ runSimulation :: forall k. (Lv k Bool,BSR k) => S3 k Bool -> IO ()
 runSimulation s = do
         if all id lcurr || all not lcurr
             then printState curr
-            else printState curr >>= \_ -> runSimulation (nextGen s)
+            else printState curr >>= \_ -> do
+                threadDelay 100000
+                runSimulation (nextGen s)
     where curr :: (Lv k Bool,BSR k) => V3 k Bool
           curr = experiment (const universe) s
           lcurr = toList curr
