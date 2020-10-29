@@ -7,11 +7,13 @@ import Fin
 import Store
 import GHC.Exts (fromList)
 
-type Size = Nadd N10 N4
+type Size = N100
+
+toBool i = if i == 0 then False else True
 
 main :: IO ()
 main = runSimulation init
     where start :: Vect Size Bool
-          start = fromList $ map (\i -> if i == 0 then False else True) [0,0,0,1,0,0,1,1,0,1,1,1,1,1]
+          start = fromList $ map toBool ([0|_<-[1..99]] ++ [1])
           init :: Store (Vect Size) (Fin Size) Bool
           init = initialStore start
