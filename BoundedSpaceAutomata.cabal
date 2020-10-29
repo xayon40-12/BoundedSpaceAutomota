@@ -35,7 +35,7 @@ library
   hs-source-dirs:
       src
   default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances MultiParamTypeClasses ConstraintKinds OverloadedLists ScopedTypeVariables
-  ghc-options: -fwarn-incomplete-patterns
+  ghc-options: -fwarn-incomplete-patterns -freduction-depth=0
   build-depends:
       adjunctions
     , base >=4.7 && <5
@@ -50,7 +50,7 @@ executable BoundedSpaceAutomata-exe
   hs-source-dirs:
       app
   default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances MultiParamTypeClasses ConstraintKinds OverloadedLists ScopedTypeVariables
-  ghc-options: -fwarn-incomplete-patterns -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -fwarn-incomplete-patterns -freduction-depth=0 -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       BoundedSpaceAutomata
     , adjunctions
@@ -67,7 +67,7 @@ test-suite BoundedSpaceAutomata-test
   hs-source-dirs:
       test
   default-extensions: GADTs DataKinds TypeFamilies PolyKinds InstanceSigs StandaloneDeriving FlexibleContexts FlexibleInstances UndecidableInstances MultiParamTypeClasses ConstraintKinds OverloadedLists ScopedTypeVariables
-  ghc-options: -fwarn-incomplete-patterns -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -fwarn-incomplete-patterns -freduction-depth=0 -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       BoundedSpaceAutomata
     , adjunctions

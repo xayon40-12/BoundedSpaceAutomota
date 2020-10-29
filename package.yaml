@@ -48,6 +48,7 @@ default-extensions:
 
 ghc-options:
 - -fwarn-incomplete-patterns
+- -freduction-depth=0
 
 library:
   source-dirs: src
