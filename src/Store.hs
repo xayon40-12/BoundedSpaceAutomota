@@ -1,17 +1,17 @@
 module Store where
-    
-import Data.Functor.Rep
-import Control.Comonad
 
-type R f rep= (Representable f, Rep f ~ rep)
+import Control.Comonad
+import Data.Functor.Rep
+
+type R f rep = (Representable f, Rep f ~ rep)
 
 data Store :: (* -> *) -> * -> * -> * where
-    MkStore :: rep -> f a -> Store f rep a
+  MkStore :: rep -> f a -> Store f rep a
 
 deriving instance (Show a, Show rep, Show (f a)) => Show (Store f rep a)
 
 pos :: Store f rep a -> rep
-pos (MkStore rep fa) = rep
+pos (MkStore rep _) = rep
 
 peek :: R f rep => rep -> Store f rep a -> a
 peek rep (MkStore _ fa) = index fa rep
@@ -29,11 +29,11 @@ experiment :: (R f rep, Functor g) => (rep -> g rep) -> Store f rep a -> g a
 experiment f s = fmap (`peek` s) (f (pos s))
 
 instance (Functor f) => Functor (Store f rep) where
-    fmap f (MkStore rep fa) = MkStore rep (fmap f fa)
+  fmap f (MkStore rep fa) = MkStore rep (fmap f fa)
 
 instance (R f rep) => Comonad (Store f rep) where
-    extract :: Store f rep a -> a
-    extract (MkStore rep fa) = index fa rep
+  extract :: Store f rep a -> a
+  extract (MkStore rep fa) = index fa rep
 
-    extend :: (Store f rep a -> b) -> Store f rep a -> Store f rep b
-    extend func (MkStore rep fa) = MkStore rep (tabulate (\rep' -> func (MkStore rep' fa)))
+  extend :: (Store f rep a -> b) -> Store f rep a -> Store f rep b
+  extend func (MkStore rep fa) = MkStore rep (tabulate (\rep' -> func (MkStore rep' fa)))
