@@ -8,7 +8,6 @@ copyright:           "2020 Nathan Touroux"
 
 extra-source-files:
 - README.md
-- ChangeLog.md
 
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
@@ -57,17 +56,6 @@ executables:
   BoundedSpaceAutomata-exe:
     main:                Main.hs
     source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - BoundedSpaceAutomata
-
-tests:
-  BoundedSpaceAutomata-test:
-    main:                Spec.hs
-    source-dirs:         test
     ghc-options:
     - -threaded
     - -rtsopts
